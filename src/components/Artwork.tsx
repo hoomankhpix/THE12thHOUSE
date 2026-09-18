@@ -1,0 +1,1 @@
+export function Artwork({ src, title, accent, className = '' }: { src: string; title: string; accent: string; className?: string }) { return <div className={`artwork ${className}`} style={{ '--accent': accent } as React.CSSProperties}><img src={src} alt={`${title} cover artwork`} loading="lazy" /><span className="artwork-mark">12H</span></div> }

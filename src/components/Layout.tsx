@@ -1,0 +1,5 @@
+import { Link, NavLink, Outlet } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
+import { useAudioPlayer } from '../context/AudioPlayerContext'
+import { GlobalAudioPlayer } from './GlobalAudioPlayer'
+export function Layout() { const { currentTrack } = useAudioPlayer(); return <div className="site-shell"><header className="site-header"><Link to="/" className="wordmark">12th <span>House</span></Link><nav><NavLink to="/releases">Releases</NavLink><NavLink to="/about">About</NavLink><a href="#platforms">Links <ArrowUpRight size={13} /></a></nav><span className="edition">Independent / 2025</span></header><main><Outlet /></main><footer className="site-footer"><span>© 12th House</span><span>Music for in-between places</span><a href="#platforms">All platforms <ArrowUpRight size={13} /></a></footer>{currentTrack && <GlobalAudioPlayer />}</div> }

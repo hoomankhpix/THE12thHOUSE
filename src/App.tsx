@@ -1,0 +1,12 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { AudioPlayerProvider } from './context/AudioPlayerContext'
+import { AuthProvider } from './context/AuthContext'
+import { AdminProtectedRoute } from './components/AdminProtectedRoute'
+import { About } from './pages/About'
+import { Admin, AdminLogin, AdminDashboard } from './pages/Admin'
+import { Home } from './pages/Home'
+import { ReleaseDetail } from './pages/ReleaseDetail'
+import { Releases } from './pages/Releases'
+import './styles.css'
+export default function App() { return <BrowserRouter><AuthProvider><AudioPlayerProvider><Routes><Route element={<Layout />}><Route path="/" element={<Home />} /><Route path="/releases" element={<Releases />} /><Route path="/releases/:id" element={<ReleaseDetail />} /><Route path="/about" element={<About />} /></Route><Route path="/admin/login" element={<AdminLogin />} /><Route element={<AdminProtectedRoute />}><Route path="/admin" element={<Admin />} /><Route path="/admin/dashboard" element={<AdminDashboard />} /></Route><Route path="*" element={<Navigate to="/" replace />} /></Routes></AudioPlayerProvider></AuthProvider></BrowserRouter> }

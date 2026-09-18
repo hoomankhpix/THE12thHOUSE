@@ -1,0 +1,10 @@
+import { ArrowLeft } from 'lucide-react'
+import { Link, useParams } from 'react-router-dom'
+import { artist, platformLinks, releases } from '../data/demo'
+import { Artwork } from '../components/Artwork'
+import { PlatformLinks } from '../components/PlatformLinks'
+import { TrackRow } from '../components/TrackRow'
+import { useEffect, useState } from 'react'
+import type { PlatformLink } from '../types'
+import { fetchReleasePlatformLinks } from '../lib/platformLinks'
+export function ReleaseDetail() { const { id } = useParams(); const release = releases.find((item) => item.id === id); const [links, setLinks] = useState<PlatformLink[]>(platformLinks); useEffect(() => { if (release) void fetchReleasePlatformLinks(release.id, artist.id).then(setLinks) }, [release]); if (!release) return <div className="page empty-state"><p className="eyebrow">404 / Not found</p><h1>This release has moved.</h1><Link className="text-link" to="/releases">Back to releases</Link></div>; const releaseTracks = release.tracks.map((track) => ({ ...track, artwork: release.artwork, artistName: artist.name })); return <div className="page detail-page"><Link className="back-link" to="/releases"><ArrowLeft size={15} /> All releases</Link><div className="detail-grid"><Artwork src={release.artwork} title={release.title} accent={release.accent} className="detail-art" /><div className="detail-copy"><p className="eyebrow">{artist.name} / {release.type} / {new Date(release.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p><h1>{release.title}</h1><p className="detail-description">{release.description}</p><div className="tracklist">{releaseTracks.map((track) => <TrackRow track={track} queue={releaseTracks} key={track.id} />)}</div><div className="stream-links"><span>Stream</span><PlatformLinks links={links} compact /></div></div></div></div> }

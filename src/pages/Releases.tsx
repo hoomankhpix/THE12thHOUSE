@@ -1,0 +1,7 @@
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
+import { releases } from '../data/demo'
+import { Artwork } from '../components/Artwork'
+import type { ReleaseType } from '../types'
+export function Releases() { const [filter, setFilter] = useState<'all' | ReleaseType>('all'); const visible = releases.filter((release) => filter === 'all' || release.type === filter); return <div className="page releases-page"><div className="page-intro"><p className="eyebrow">Catalogue / 2024—25</p><h1>Releases</h1><p className="intro-copy">A collection of studies in texture, rhythm, and the spaces between.</p></div><div className="filter-row" role="tablist">{(['all', 'album', 'single'] as const).map((option) => <button className={filter === option ? 'active' : ''} onClick={() => setFilter(option)} key={option}>{option}</button>)}</div><div className="release-grid">{visible.map((release, index) => <Link to={`/releases/${release.id}`} className={`release-card card-${index + 1}`} key={release.id}><Artwork src={release.artwork} title={release.title} accent={release.accent} /><div className="card-meta"><span>0{index + 1} / {release.type}</span><h2>{release.title}</h2><span>{new Date(release.releaseDate).getFullYear()} <ArrowUpRight size={14} /></span></div></Link>)}</div></div> }
