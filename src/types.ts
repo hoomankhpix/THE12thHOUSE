@@ -4,3 +4,4 @@ export interface Release { id: string; title: string; type: ReleaseType; release
 export type PlatformName = 'SoundCloud' | 'Spotify' | 'Apple Music' | 'YouTube Music' | 'YouTube' | 'Bandcamp' | 'Deezer' | 'Tidal' | 'Custom'
 export interface PlatformLink { id: string; artistId?: string | null; releaseId?: string | null; platform: PlatformName | string; url: string; label?: string; sortOrder?: number }
 export interface Artist { id: string; name: string; bio: string; image: string }
+export interface CollectiveMember { id: string; name: string; discipline: string; description: string; image?: string; links?: PlatformLink[] }
